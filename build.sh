@@ -14,7 +14,7 @@ if [ -e 'custom_build.sh' ]; then
 fi
 
 if [ -e '.git' ]; then
-    NAME=$(basename $(cat .git/config| grep '/scanners/' | tr -d ' ') | sed -e 's/\.git$//g')
+    NAME=$(basename $(cat .git/config| grep '/scanner-' | tr -d ' ') | sed -e 's/\.git$//g')
 else
     # fingers crossed name is the same as repo
     NAME=$(basename $(pwd))
