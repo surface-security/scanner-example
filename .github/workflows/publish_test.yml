@@ -11,5 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Prepare
+      id: prepare
+      run: |
+          TAG=${GITHUB_REF#refs/tags/v}
+          echo ::set-output name=tag_name::${TAG}
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v1
+        with:
+          version: latest
+          args: release --rm-dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.prepare.outputs.tag_name }}
     - name: Build and publish
-      run: echo oi
+      run: ./build.sh
