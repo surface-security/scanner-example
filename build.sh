@@ -27,11 +27,11 @@ docker build -t ${IMAGE}:${TAG} .
 
 env
 
-if [ -n "${BUILD_NUMBER}" -o "$1" = "push" ]; then
+if [ -n "${GITHUB_RUN_NUMBER}" -o "$1" = "push" ]; then
     docker push ${IMAGE}:${TAG}
     if [ "${TAG}" = "master" ]; then
-        if [ -n "${BUILD_NUMBER}" ]; then
-            docker tag ${IMAGE}:master ${IMAGE}:${BUILD_NUMBER}
+        if [ -n "${GITHUB_RUN_NUMBER}" ]; then
+            docker tag ${IMAGE}:master ${IMAGE}:${GITHUB_RUN_NUMBER}
             docker push ${IMAGE}:${BUILD_NUMBER}
         fi
         docker tag ${IMAGE}:master ${IMAGE}:latest
