@@ -25,6 +25,8 @@ TAG=${gitlabSourceBranch:-dev}
 
 docker build -t ${IMAGE}:${TAG} .
 
+env
+
 if [ -n "${BUILD_NUMBER}" -o "$1" = "push" ]; then
     docker push ${IMAGE}:${TAG}
     if [ "${TAG}" = "master" ]; then
