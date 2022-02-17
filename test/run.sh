@@ -5,19 +5,12 @@ set -e
 cd $(dirname $0)
 cd ..
 
-./build.sh nopush
-
-if [ -e '.git' ]; then
-    NAME=$(basename $(cat .git/config| grep '/scanners/' | tr -d ' ') | sed -e 's/\.git$//g')
-else
-    # fingers crossed name is the same as repo
-    NAME=$(basename $(pwd))
-fi
+NAME="${1:-tmp-$(basename $(pwd))}"
 
 docker run --rm \
            -v $(pwd)/test/input:/input:ro \
            -v $(pwd)/test/output:/output \
-           test/${NAME}:dev \
+           ${NAME} \
            /input/input.txt
 
 echo
