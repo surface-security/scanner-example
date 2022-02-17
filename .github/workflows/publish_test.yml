@@ -39,4 +39,4 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ghcr.io/surface-security/scanner-example:dev-gq
+        tags: ghcr.io/surface-security/${{ github.event.repository.name }}:${{ github.event.ref_name }}
